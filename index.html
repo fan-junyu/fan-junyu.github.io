@@ -4,33 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Junyu Fan</title>
-
   <style>
     * {
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      background: #f4f2ee;
-      color: #1c1c1c;
+    }
+
+    body {
+      background: #f6f1e8;
+      color: #1f1b17;
       font-family: Georgia, "Times New Roman", serif;
+      overflow: hidden;
     }
 
     .page {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 100px 28px 120px;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 56px;
     }
 
-    /* 图片区域（电影画幅） */
+    .frame {
+      width: min(1120px, 100%);
+      display: grid;
+      grid-template-columns: minmax(360px, 1.15fr) minmax(280px, 0.85fr);
+      gap: 56px;
+      align-items: center;
+    }
+
     .image-wrap {
       width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
       border-radius: 4px;
-      margin-bottom: 56px;
-      background: #ddd;
+      background: #d8cfc3;
     }
 
     .image-wrap img {
@@ -40,68 +53,93 @@
       display: block;
     }
 
-    /* 文字区域 */
     .text {
-      max-width: 640px;
+      max-width: 360px;
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: 40px;
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 3vw, 3.2rem);
+      line-height: 1.02;
       font-weight: 500;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
 
     .subtitle {
-      margin: 0 0 32px;
-      font-size: 15px;
-      color: #6a6a6a;
+      margin: 0 0 22px;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #75685b;
     }
 
     .bio {
       margin: 0;
-      font-size: 20px;
+      font-size: 1.2rem;
       line-height: 1.9;
-      color: #222;
+      color: #2a241e;
     }
 
-    /* 移动端 */
-    @media (max-width: 640px) {
-      .page {
-        padding: 64px 20px 80px;
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
       }
 
+      .page {
+        height: auto;
+        min-height: 100vh;
+        padding: 36px 24px;
+      }
+
+      .frame {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .text {
+        max-width: 100%;
+      }
+
+      .image-wrap {
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    @media (max-width: 560px) {
       h1 {
-        font-size: 30px;
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 0.95rem;
       }
 
       .bio {
-        font-size: 18px;
+        font-size: 1.05rem;
+        line-height: 1.8;
+      }
+
+      .page {
+        padding: 24px 18px;
       }
     }
   </style>
 </head>
-
 <body>
   <main class="page">
+    <section class="frame">
+      <div class="image-wrap">
+        <img src="your-photo.jpg" alt="Portrait of Junyu Fan" />
+      </div>
 
-    <div class="image-wrap">
-      <img src="photo0.jpg" alt="Image of Junyu Fan" />
-    </div>
-
-    <div class="text">
-      <h1>Junyu Fan</h1>
-
-      <p class="subtitle">
-        MD student currently based in Heidelberg
-      </p>
-
-      <p class="bio">
-        Interested in psychiatry, psychotherapy, and the intersection of mind and
-        philosophy. Exploring human experience through medicine and the humanities.
-      </p>
-    </div>
-
+      <div class="text">
+        <h1>Junyu Fan</h1>
+        <p class="subtitle">MD student currently based in Heidelberg</p>
+        <p class="bio">
+          Interested in psychiatry, psychotherapy, and the intersection of mind and
+          philosophy. Exploring human experience through medicine and the humanities.
+        </p>
+      </div>
+    </section>
   </main>
 </body>
 </html>
