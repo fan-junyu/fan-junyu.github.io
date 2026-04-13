@@ -9,18 +9,27 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #f5f1ea;
+      --text: #1e1b18;
+      --muted: #6d665f;
+      --line: rgba(30, 27, 24, 0.08);
+    }
+
     body {
       margin: 0;
-      background: #f7f6f2;
-      color: #1a1a1a;
-      font-family: Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", Times, serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     .page {
       min-height: 100vh;
-      max-width: 1280px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 96px 72px;
+      padding: 96px 72px 88px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -29,92 +38,124 @@
     .layout {
       width: 100%;
       display: grid;
-      grid-template-columns: 360px minmax(320px, 520px);
-      gap: 88px;
-      align-items: center;
-      justify-content: center;
+      grid-template-columns: minmax(340px, 720px) minmax(240px, 360px);
+      gap: 72px;
+      align-items: end;
     }
 
-    .photo {
+    .image-block {
       width: 100%;
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      border-radius: 6px;
-      background: #ddd;
     }
 
-    .photo img {
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 21 / 9;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #d8cec1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    .photo-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      filter: saturate(0.96) contrast(1.02);
     }
 
-    .text {
-      max-width: 520px;
+    .caption {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .text-block {
+      max-width: 320px;
+      padding-bottom: 8px;
     }
 
     h1 {
-      margin: 0 0 18px;
-      font-size: 56px;
-      line-height: 1.02;
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1.08;
       font-weight: 500;
       letter-spacing: -0.02em;
     }
 
     .subtitle {
-      margin: 0 0 28px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #666;
+      margin: 0 0 22px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
     }
 
     .bio {
       margin: 0;
-      font-size: 24px;
-      line-height: 1.75;
-      color: #222;
+      font-size: 17px;
+      line-height: 1.95;
+      color: var(--text);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--line);
+      margin: 0 0 20px;
     }
 
     @media (max-width: 980px) {
       .page {
-        padding: 72px 32px;
+        padding: 72px 32px 64px;
       }
 
       .layout {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 34px;
+        align-items: start;
       }
 
-      .photo {
-        max-width: 360px;
+      .text-block {
+        max-width: 560px;
+        padding-bottom: 0;
       }
 
-      h1 {
-        font-size: 42px;
-      }
-
-      .bio {
-        font-size: 20px;
+      .photo-frame {
+        aspect-ratio: 16 / 9;
       }
     }
 
     @media (max-width: 640px) {
       .page {
-        padding: 40px 20px;
+        padding: 40px 20px 36px;
+      }
+
+      .layout {
+        gap: 24px;
       }
 
       h1 {
-        font-size: 34px;
+        font-size: 28px;
       }
 
       .subtitle {
-        font-size: 16px;
+        font-size: 14px;
+        margin-bottom: 18px;
       }
 
       .bio {
-        font-size: 18px;
-        line-height: 1.7;
+        font-size: 16px;
+        line-height: 1.85;
+      }
+
+      .caption {
+        font-size: 12px;
+      }
+
+      .photo-frame {
+        aspect-ratio: 16 / 10;
       }
     }
   </style>
@@ -122,11 +163,17 @@
 <body>
   <main class="page">
     <section class="layout">
-      <div class="photo">
-        <img src="your-photo.jpg" alt="Portrait of Junyu Fan" />
+      <div class="image-block">
+        <div class="photo-frame">
+          <img src="photo0.jpg" alt="Junyu Fan holding two photobooth portraits" />
+        </div>
+        <p class="caption">
+          A warm-toned still, with photobooth portraits held in hand.
+        </p>
       </div>
 
-      <div class="text">
+      <div class="text-block">
+        <div class="divider"></div>
         <h1>Junyu Fan</h1>
         <p class="subtitle">MD student currently based in Heidelberg</p>
         <p class="bio">
