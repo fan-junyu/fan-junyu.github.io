@@ -238,7 +238,7 @@ img {
 
 .image-wrap img {
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: cover;
 }
 
@@ -451,20 +451,40 @@ img {
 
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
 /* style.css */
-
+/* --- 彻底修复手机版 About 页 --- */
 @media (max-width: 640px) {
-  /* 固定图片容器高度 */
-  .image-wrap {
-    height: 220px; /* 或者你需要的固定高度 */
-    aspect-ratio: auto;
-    flex-shrink: 0; /* 防止被压缩 */
+  /* 移除之前所有的点击蓝色高亮 */
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 
-  /* 核心：给文字区域一个固定的最小高度，防止中英文行数不同导致整体高度闪烁 */
+  /* 强制 About 布局为纵向且间距固定 */
+  .about-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
+  }
+
+  /* 手机版图片高度固定，不随比例变化 */
+  .image-wrap {
+    width: 100% !important;
+    height: 240px !important; /* 你可以根据观感微调这个高度 */
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 手机版为了整齐建议裁切填充 */
+  }
+
+  /* 关键：通过 min-height 锁定文字区域，解决切换跳动 */
   .text-wrap {
-    min-height: 280px; /* 根据你最长的文字内容（通常是中文或英文较长的那端）设定一个安全值 */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 400px !important; /* 测量你最长的中/英文段落，确保这个高度能装下它们 */
+    display: block !important;
   }
 }
