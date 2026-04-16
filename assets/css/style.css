@@ -452,40 +452,39 @@ img {
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
 /* style.css */
 
-/* --- 彻底修复手机版 About 页 --- */
+/* --- 最终强制修复：手机版 About 图片高度与跳动 --- */
 @media (max-width: 640px) {
-  /* 移除之前所有的点击蓝色高亮 */
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  /* 强制 About 布局为纵向且间距固定 */
-  .about-layout {
+  /* 1. 强制 About 布局不再使用 Grid，改为 Flex 纵向排列 */
+  .page-wrap .about-layout {
     display: flex !important;
     flex-direction: column !important;
-    gap: 24px !important;
-    align-items: flex-start !important;
+    gap: 20px !important;
   }
 
-  /* 手机版图片高度固定，不随比例变化 */
-  .image-wrap {
+  /* 2. 核心：强制固定图片容器高度 */
+  .about-layout .image-wrap {
+    display: block !important;
     width: 100% !important;
-    height: 240px !important; /* 你可以根据观感微调这个高度 */
-    overflow: hidden;
-    flex-shrink: 0;
+    height: 220px !important; /* 强制锁定 220px，不再随图片比例缩放 */
+    aspect-ratio: auto !important; /* 禁用掉电脑版的比例 */
+    flex: 0 0 220px !important; /* 确保在 flex 布局下不缩减 */
+    overflow: hidden !important;
   }
 
-  .image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 手机版为了整齐建议裁切填充 */
+  /* 3. 确保图片填满这个固定高度的框 */
+  .about-layout .image-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* 这样图片会填满 220px 的框而不会变形 */
   }
 
-  /* 关键：通过 min-height 锁定文字区域，解决切换跳动 */
-  .text-wrap {
+  /* 4. 解决中英文切换跳动：锁定文字区域最小高度 */
+  .about-layout .text-wrap {
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 400px !important; /* 测量你最长的中/英文段落，确保这个高度能装下它们 */
-    display: block !important;
+    min-height: 320px !important; /* 请根据你英文简介的长度微调此数值 */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
   }
 }
