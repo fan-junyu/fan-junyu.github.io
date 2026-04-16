@@ -459,6 +459,7 @@ img {
     display: flex !important;
     flex-direction: column !important;
     gap: 20px !important;
+    margin-top: 40px !important; 
   }
 
   /* 2. 核心：强制固定图片容器高度 */
@@ -473,8 +474,9 @@ img {
 
   /* 3. 确保图片填满这个固定高度的框 */
   .about-layout .image-wrap img {
+    display: block !important;
     width: 100% !important;
-    height: 100% !important;
+    height: 220px !important; 
     object-fit: cover !important; /* 这样图片会填满 220px 的框而不会变形 */
   }
 
@@ -488,3 +490,4 @@ img {
     justify-content: flex-start !important;
   }
 }
+
