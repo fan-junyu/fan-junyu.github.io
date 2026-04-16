@@ -24,20 +24,64 @@
     </header>
 
     <main class="site-main">
-      <section class="page-wrap simple-page">
-       <h1 class="page-title">Hello, my friend!</h1>
-        <p class="page-body">
-          I'm more than happy to receive random messages from you.
-        </p>
+     <section class="page-wrap simple-page">
+  <h1 class="page-title">Hello, my friend!</h1>
+  <p class="page-body">
+    I'm more than happy to receive random messages from you.
+  </p>
 
-        <ul class="contact-list">
-          <li><span class="contact-label">Email</span> fjyceleste@outlook.com</li>
-        </ul>
-      </section>
-    </main>
-  </div>
+  <ul class="contact-list">
+  <li>
+    <span class="contact-label">Email</span>
+    <a href="mailto:fjyceleste@outlook.com">fjyceleste@outlook.com</a>
+  </li>
+
+  <li class="message-trigger-row">
+    <span class="contact-label">Or</span>
+    <button type="button" class="message-trigger" id="message-trigger">
+      Leave a message here
+    </button>
+  </li>
+</ul>
+
+<div class="contact-form-block" id="contact-form-block" hidden>
+  <form action="YOUR_FORMSPREE_URL" method="POST" class="contact-form">
+    <label>
+      <span>Name</span>
+      <input type="text" name="name" placeholder="How should I address you?" />
+    </label>
+
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" placeholder="you@example.com" required />
+    </label>
+
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="5" placeholder="Write here..."></textarea>
+    </label>
+
+    <button type="submit" class="form-submit">Send</button>
+  </form>
+</div>
 
   <script src="/assets/js/main.js"></script>
+  <script>
+  const messageTrigger = document.getElementById("message-trigger");
+  const contactFormBlock = document.getElementById("contact-form-block");
+
+  messageTrigger.addEventListener("click", () => {
+    const isHidden = contactFormBlock.hasAttribute("hidden");
+
+    if (isHidden) {
+      contactFormBlock.removeAttribute("hidden");
+      messageTrigger.textContent = "Hide message form";
+    } else {
+      contactFormBlock.setAttribute("hidden", "");
+      messageTrigger.textContent = "Leave a message here";
+    }
+  });
+</script>
 </body>
 </html>
 
