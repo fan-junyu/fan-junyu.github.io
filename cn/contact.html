@@ -27,16 +27,63 @@
       <section class="page-wrap simple-page">
         <h1 class="page-title">你好，朋友！</h1>
         <p class="page-body">
-          我非常乐意收到你发来的随笔信息。
+          我很乐意收到你发来的消息。
         </p>
 
         <ul class="contact-list">
-          <li><span class="contact-label">Email</span> fjyceleste@outlook.com </li>
+          <li>
+            <span class="contact-label">Email</span>
+            <a href="mailto:fjyceleste@outlook.com">fjyceleste@outlook.com</a>
+          </li>
+
+          <li class="message-trigger-row">
+            <span class="contact-label">或</span>
+            <button type="button" class="message-trigger" id="message-trigger-cn">
+              在此留言
+            </button>
+          </li>
         </ul>
+
+        <div class="contact-form-block" id="contact-form-block-cn" hidden>
+          <form action="YOUR_FORMSPREE_URL" method="POST" class="contact-form">
+            <label>
+              <span>称呼</span>
+              <input type="text" name="name" placeholder="我该如何称呼你？" />
+            </label>
+
+            <label>
+              <span>邮箱</span>
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+
+            <label>
+              <span>内容</span>
+              <textarea name="message" rows="5" placeholder="写点什么…"></textarea>
+            </label>
+
+            <button type="submit" class="form-submit">发送</button>
+          </form>
+        </div>
       </section>
     </main>
   </div>
 
   <script src="/assets/js/main.js"></script>
+<script>
+  const trigger = document.getElementById("message-trigger-cn");
+  const form = document.getElementById("contact-form-block-cn");
+
+  trigger.addEventListener("click", () => {
+    const isHidden = form.hasAttribute("hidden");
+
+    if (isHidden) {
+      form.removeAttribute("hidden");
+      trigger.textContent = "隐藏留言区";
+    } else {
+      form.setAttribute("hidden", "");
+      trigger.textContent = "在此留言";
+    }
+  });
+</script>
 </body>
 </html>
