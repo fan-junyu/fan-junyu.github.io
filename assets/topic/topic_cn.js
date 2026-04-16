@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scripts = {
         init: { 
         title: "我是谁？", 
-        text: "是什么勾勒出“我”的轮廓？" 
+        text: "是什么勾勒出“我”的轮廓？<br><br><i class='intro-italic'>如果要去寻找它……</i>" 
         },
         brain: { 
             title: "它在我大脑里吗？", 

@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scripts = {
         init: { 
             title: "Who am I?", 
-            text: "What draws the outline of the “I”?" 
+            text: "What draws the outline of the “I”?<br><br><i class='intro-italic'>If I were to look for it…</i>" 
         },
         brain: { 
             title: "Is it in my brain?", 
