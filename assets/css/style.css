@@ -448,3 +448,38 @@ img {
     text-align: left;
   }
 }
+
+@media (max-width: 640px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* 照片高度固定 */
+  .about-layout .image-wrap {
+    aspect-ratio: 1.85 / 1;
+    width: 100%;
+    min-height: 0;
+  }
+
+  /* 文字区高度固定，避免中英文切换跳动 */
+  .about-layout .text-wrap {
+    min-height: 11.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .about-layout .page-title {
+    margin-bottom: 0.7rem;
+  }
+
+  .about-layout .page-subtitle {
+    margin-bottom: 0.9rem;
+  }
+
+  .about-layout .page-body {
+    line-height: 1.75;
+  }
+}
