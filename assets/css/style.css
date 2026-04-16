@@ -37,6 +37,94 @@ img {
   max-width: 100%;
 }
 
+.contact-form-block {
+  margin-top: 32px;
+  max-width: 460px;
+}
+
+.form-title {
+  font-family: "Noto Serif SC", Georgia, serif;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.message-trigger-row {
+  align-items: baseline;
+}
+
+.message-trigger {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: #2a241e;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+  cursor: pointer;
+}
+
+.message-trigger:hover {
+  color: #4a5560;
+}
+
+.contact-form-block {
+  margin-top: 24px;
+  max-width: 460px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form span {
+  font-size: 0.9rem;
+  color: #75685b;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px 12px;
+  border: 1px solid #d8dce2;
+  background: #fff;
+  color: #2a241e;
+  font: inherit;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 10px 16px;
+  border: 1px solid #c8ced6;
+  background: transparent;
+  color: #2a241e;
+  font: inherit;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  background: #f4f6f8;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "PingFang SC", "Noto Sans SC", sans-serif;
+  color: #9aa3ab;
+}
+
+
 .site-shell {
   min-height: 100vh;
   display: flex;
@@ -311,4 +399,52 @@ img {
     min-width: auto;
   }
 
+}
+
+@media (max-width: 640px) {
+  .message-trigger-row {
+    align-items: center;
+  }
+
+  .message-trigger {
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .contact-form-block {
+    margin-top: 18px;
+    max-width: 100%;
+  }
+
+  .contact-form {
+    width: 100%;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .form-submit {
+    width: auto;
+    min-width: 88px;
+  }
+}
+
+@media (max-width: 640px) {
+  .simple-page {
+    text-align: left;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .contact-list {
+    align-items: flex-start;
+  }
+
+  .contact-form-block {
+    text-align: left;
+  }
 }
