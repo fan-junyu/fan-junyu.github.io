@@ -450,24 +450,21 @@ img {
 }
 
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
-.about-layout {
-  gap: 20px;
-}
+/* style.css */
 
-.image-wrap {
-  height: 230px;
-  aspect-ratio: auto;
-}
+@media (max-width: 640px) {
+  /* 固定图片容器高度 */
+  .image-wrap {
+    height: 220px; /* 或者你需要的固定高度 */
+    aspect-ratio: auto;
+    flex-shrink: 0; /* 防止被压缩 */
+  }
 
-.image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.text-wrap {
-  min-height: 170px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  /* 核心：给文字区域一个固定的最小高度，防止中英文行数不同导致整体高度闪烁 */
+  .text-wrap {
+    min-height: 280px; /* 根据你最长的文字内容（通常是中文或英文较长的那端）设定一个安全值 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }

@@ -512,38 +512,42 @@
   }
 
   /* SVG：不再 bottom 锚定，改成从上往下固定摆放 */
+/* topic.css */
+
 @media (max-width: 640px) {
+  /* 1. 扩大 SVG 容器的高度，或者改为自适应 */
   .svg-panel {
     position: absolute;
-    top: 19rem;
+    top: 19rem; 
     left: 0;
     width: 100%;
-    height: calc(100% - 19rem);
-    min-height: 0;
-    padding: 0;
-    overflow: visible;
+    height: 40vh; /* 将固定的 19rem 改为相对屏幕高度的 40vh 或更大 */
+    min-height: 300px; /* 设定一个最小保证值 */
+    overflow: visible; /* 允许溢出显示，防止切断 */
     z-index: 1;
-
+    
     display: flex;
     justify-content: center;
     align-items: flex-start;
   }
 
+  /* 2. 调整 SVG 的缩放中心 */
   .svg-panel svg {
     width: 100%;
     height: auto;
-    transform: translateY(0) scale(1.5);
-    transform-origin: center top;
-  }
-
-  .svg-panel:hover svg {
-    transform: translateY(0) scale(1.5);
+    /* 如果缩放 1.8 倍导致切断，尝试减小缩放或调整位移 */
+    transform: translateY(0) scale(1.7); 
+    transform-origin: center top; 
   }
 }
 
   .svg-panel:hover svg {
     transform: translateY(0) scale(1.8);
   }
+
+  .svg-panel svg {
+  -webkit-tap-highlight-color: transparent;
+}
 
   .hint-beacon {
     width: 42px;
