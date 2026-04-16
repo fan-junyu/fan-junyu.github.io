@@ -459,7 +459,7 @@ img {
     display: flex !important;
     flex-direction: column !important;
     gap: 20px !important;
-    margin-top: 40px !important; 
+    margin-top: 100px !important; 
   }
 
   /* 2. 核心：强制固定图片容器高度 */
