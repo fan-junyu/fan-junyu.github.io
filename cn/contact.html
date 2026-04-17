@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — 范均钰</title>
+  <link rel="icon" href="/assets/icon/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 <body>
@@ -46,6 +47,9 @@
 
         <div class="contact-form-block" id="contact-form-block-cn" hidden>
           <form action="https://formspree.io/f/xqewpyla" method="POST" class="contact-form">
+
+              <!-- honeypot -->
+  <input type="text" name="_gotcha" style="display:none">
             <label>
               <span>称呼</span>
               <input type="text" name="name" placeholder="我该如何称呼你？" />
