@@ -374,12 +374,10 @@ img {
     line-height: 1.8;
   }
 
-  .site-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 80px);
-  }
+.site-main {
+  display: block;
+  min-height: auto;
+}
 
   .simple-page {
     max-width: 420px;
