@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const shiverEffect = document.getElementById('shiver-effect');
     const fullBodyStatic = document.getElementById('full-body-static');
     const outlineGroup = document.getElementById('outline');
+    
+        const textPanel = document.querySelector('.text-panel');
 
 
     // === 2. 初始化功能 ===
@@ -148,6 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 🌟 全新的温和文字切换逻辑
     const updateText = (key, immediate = false) => {
+            if (textPanel) {
+        textPanel.classList.toggle('is-init-step', key === 'init');
+    }
         // 如果是初始化，不使用渐变，直接显示
         if (immediate) {
             storyTitle.innerHTML = scripts[key].title;
