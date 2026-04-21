@@ -341,15 +341,12 @@ img {
     max-width: 100%;
   }
 }
-
 @media (max-width: 640px) {
   .site-header,
   .site-main {
     padding-left: 20px;
     padding-right: 20px;
   }
-
-
 
   .top-nav {
     gap: 12px;
@@ -379,29 +376,28 @@ img {
 
   .site-main {
     display: flex;
-    align-items: center;     /* 垂直居中 */
-    justify-content: center; /* 水平居中 */
-    min-height: calc(100vh - 80px); /* 减去导航高度 */
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
   }
 
   .simple-page {
-    text-align: center;      /* 文字居中 */
     max-width: 420px;
+    text-align: left;
+    padding-left: 4px;
+    padding-right: 4px;
   }
 
   .contact-list {
     display: flex;
     flex-direction: column;
-    align-items: center;     /* 联系方式居中 */
+    align-items: flex-start;
   }
 
   .contact-label {
     min-width: auto;
   }
 
-}
-
-@media (max-width: 640px) {
   .message-trigger-row {
     align-items: center;
   }
@@ -415,6 +411,7 @@ img {
   .contact-form-block {
     margin-top: 18px;
     max-width: 100%;
+    text-align: left;
   }
 
   .contact-form {
@@ -431,28 +428,13 @@ img {
     width: auto;
     min-width: 88px;
   }
-}
-
-@media (max-width: 640px) {
-  .simple-page {
-    text-align: left;
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-
-  .contact-list {
-    align-items: flex-start;
-  }
-
-  .contact-form-block {
-    text-align: left;
-  }
 
   .site-note {
-  margin-top: 40px;
-  font-size: 11px;
-  text-align: center;
-}
+    margin-top: 40px;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: center;
+  }
 }
 
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
