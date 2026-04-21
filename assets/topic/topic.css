@@ -563,4 +563,8 @@
     width: 36px;
     height: 36px;
   }
+
+  .text-panel.is-init-step {
+  top: 4.2rem;
+}
 }
