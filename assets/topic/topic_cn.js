@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const shiverEffect = document.getElementById('shiver-effect');
     const fullBodyStatic = document.getElementById('full-body-static');
     const outlineGroup = document.getElementById('outline');
-    
+
         const textPanel = document.querySelector('.text-panel');
 
 
@@ -149,32 +149,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 🌟 全新的温和文字切换逻辑
-    const updateText = (key, immediate = false) => {
-            if (textPanel) {
-        textPanel.classList.toggle('is-init-step', key === 'init');
-    }
-        // 如果是初始化，不使用渐变，直接显示
-        if (immediate) {
-            storyTitle.innerHTML = scripts[key].title;
-            storyContent.innerHTML = scripts[key].text;
-            return;
+const updateText = (key, immediate = false) => {
+    if (immediate) {
+        if (textPanel) {
+            textPanel.classList.toggle('is-init-step', key === 'init');
         }
 
-        // 1. 旧文字淡出
-        storyTitle.classList.add('text-fade-out');
-        storyContent.classList.add('text-fade-out');
+        storyTitle.innerHTML = scripts[key].title;
+        storyContent.innerHTML = scripts[key].text;
+        return;
+    }
 
-        // 2. 等待淡出动画完成（800ms，需与 CSS 保持一致）
-        setTimeout(() => {
-            // 替换文字内容
-            storyTitle.innerHTML = scripts[key].title;
-            storyContent.innerHTML = scripts[key].text;
-            
-            // 3. 新文字淡入
-            storyTitle.classList.remove('text-fade-out');
-            storyContent.classList.remove('text-fade-out');
-        }, 800);
-    };
+    // 先在原位置淡出
+    storyTitle.classList.add('text-fade-out');
+    storyContent.classList.add('text-fade-out');
+
+    setTimeout(() => {
+        // 淡出完成后再切换位置状态
+        if (textPanel) {
+            textPanel.classList.toggle('is-init-step', key === 'init');
+        }
+
+        // 再替换文字
+        storyTitle.innerHTML = scripts[key].title;
+        storyContent.innerHTML = scripts[key].text;
+
+        // 最后淡入
+        storyTitle.classList.remove('text-fade-out');
+        storyContent.classList.remove('text-fade-out');
+    }, 800);
+};
 
    // ---------------------------------------------
     // 【流程正式启动】
