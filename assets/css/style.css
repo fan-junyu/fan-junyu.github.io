@@ -447,8 +447,21 @@ img {
   .contact-form-block {
     text-align: left;
   }
+
+  .site-note {
+  margin-top: 40px;
+  font-size: 11px;
+  text-align: center;
+}
 }
 
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
 /* style.css */
 
+.site-note {
+  margin-top: 56px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #a8afb6;
+  font-family: "Noto Serif SC", Georgia, "Times New Roman", serif;
+}
