@@ -441,6 +441,13 @@ img {
 /* About 页：手机版固定画面高度，减少中英文切换跳动 */
 /* style.css */
 
+@media (max-width: 640px) {
+  .about-layout {
+    margin-top: 18svh;
+    gap: 20px;
+  }
+}
+
 .site-note {
   margin-top: 56px;
   font-size: 12px;
