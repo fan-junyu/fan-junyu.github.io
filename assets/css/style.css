@@ -442,8 +442,14 @@ img {
 /* style.css */
 
 @media (max-width: 640px) {
-  .about-layout {
-    margin-top: 18svh;
+  .about-page .site-main {
+    display: block;
+    min-height: auto;
+    padding-top: 12svh;
+  }
+
+  .about-page .about-layout {
+    margin-top: 0;
     gap: 20px;
   }
 }
