@@ -192,34 +192,7 @@
 }
 
 .topic-interaction-hint {
-position: fixed;
-left: 0;
-top: 0;
-  z-index: 6;
-    transform: translate(18px, -14px);
-  pointer-events: none;
-
-  font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
-  font-size: clamp(0.72rem, 0.72vw, 0.9rem);
-  font-style: italic;
-  letter-spacing: 0.045em;
-  line-height: 1;
-
-  color: rgba(110, 128, 140, 0.68);
-  text-shadow: 0 0 14px rgba(150, 175, 190, 0.08);
-
-  opacity: 0;
-  filter: blur(2px);
-  transform: translate(18px, -14px);
-
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-
-  transition:
-    opacity 1600ms ease,
-    filter 1600ms ease,
-    transform 1600ms ease;
+  display: none;
 }
 
 .topic-interaction-hint.is-visible {

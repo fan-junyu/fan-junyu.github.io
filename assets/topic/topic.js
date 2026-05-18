@@ -62,8 +62,11 @@ let hintTimer = null;
 let hintFollowsMouse = true;
 let beaconTimer = null;
 
-function scheduleInteractionHint(text = HINT_TEXT.initial, delay = TIMING_CONFIG.hintDelay || 2000) {
-    if (!interactionHint) return;
+function scheduleInteractionHint
+(text = HINT_TEXT.initial, delay = TIMING_CONFIG.hintDelay || 2000) {
+
+    if (!interactionHint || isMobile) return;
+
     hintFollowsMouse = true;
     clearTimeout(hintTimer);
 
@@ -94,8 +97,7 @@ function hideInteractionHint() {
 }
 
 function showResetHint() {
-    if (!interactionHint) return;
-
+    if (!interactionHint || isMobile) return;
     hintFollowsMouse = false;
 
     clearTimeout(hintTimer);
@@ -119,7 +121,7 @@ function showResetHint() {
 
 
 function moveHintWithMouse(event) {
-    if (!interactionHint) return;
+    if (!interactionHint || isMobile) return;
     if (window.innerWidth <= 640) return;
     if (hasInteracted) return;
     if (!hintFollowsMouse) return;
