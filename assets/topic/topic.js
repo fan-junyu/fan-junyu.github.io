@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================================================================
     const TIMING_CONFIG = {
         initBeaconAppear: 500,     
+        hintDelay: 200,
 
         neuronDrawInterval: 400,   
         torsoBeaconAppear: 2000,   
@@ -20,6 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
         textBeaconAppear: 3500,    
         finalReset: 5500          // 调长了结尾重置时间，让访客读完最终的名人名言
     };
+
+
+    const HINT_TEXT = {
+    initial: "follow the dot",
+    reset: "begin again"
+};
     // =====================================================================
 
 
@@ -27,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const storyTitle = document.getElementById('story-title');
     const storyContent = document.getElementById('story-content');
     const hintBeacon = document.getElementById('hint-beacon');
+    const interactionHint = document.getElementById("topic-interaction-hint");
     
     const hoverHead = document.getElementById('hover_x5F_head');
     const hoverTorso = document.getElementById('hover_x5F_torso');
@@ -49,6 +57,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const outlineGroup = document.getElementById('outline');
 
     const textPanel = document.querySelector('.text-panel');
+    let hasInteracted = false;
+let hintTimer = null;
+let hintFollowsMouse = true;
+let beaconTimer = null;
+
+function scheduleInteractionHint(text = HINT_TEXT.initial, delay = TIMING_CONFIG.hintDelay || 2000) {
+    if (!interactionHint) return;
+    hintFollowsMouse = true;
+    clearTimeout(hintTimer);
+
+    hasInteracted = false;
+    document.body.classList.remove("topic-has-interacted");
+
+    interactionHint.textContent = text;
+    interactionHint.classList.remove("is-visible", "is-hidden");
+
+    hintTimer = setTimeout(() => {
+        if (!hasInteracted) {
+            interactionHint.classList.add("is-visible");
+        }
+    }, delay);
+}
+
+function hideInteractionHint() {
+    if (!interactionHint) return;
+
+    hasInteracted = true;
+    document.body.classList.add("topic-has-interacted");
+
+    clearTimeout(hintTimer);
+    hintTimer = null;
+
+    interactionHint.classList.remove("is-visible");
+    interactionHint.classList.add("is-hidden");
+}
+
+function showResetHint() {
+    if (!interactionHint) return;
+
+    hintFollowsMouse = false;
+
+    clearTimeout(hintTimer);
+
+    hasInteracted = false;
+    document.body.classList.remove("topic-has-interacted");
+
+    interactionHint.textContent = HINT_TEXT.reset;
+    interactionHint.classList.remove("is-hidden");
+    interactionHint.classList.add("is-visible");
+
+    if (window.innerWidth > 640) {
+        interactionHint.style.left = "45vw";
+        interactionHint.style.top = "72vh";
+    } else {
+        interactionHint.style.left = "50%";
+        interactionHint.style.top = "38svh";
+    }
+}
+
+
+
+function moveHintWithMouse(event) {
+    if (!interactionHint) return;
+    if (window.innerWidth <= 640) return;
+    if (hasInteracted) return;
+    if (!hintFollowsMouse) return;
+
+    interactionHint.style.left = `${event.clientX}px`;
+    interactionHint.style.top = `${event.clientY}px`;
+}
+
+document.addEventListener("mousemove", moveHintWithMouse);
 
     // === 2. 初始化功能 ===
     const setCenter = (el) => {
@@ -86,22 +166,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // === 3. 智能光标追踪系统 ===
     let currentBeaconTarget = null; 
 
-    const updateBeaconPosition = () => {
-        if (!currentBeaconTarget) return;
-        const targetEl = document.getElementById(currentBeaconTarget);
-        if (!targetEl) return;
+const updateBeaconPosition = () => {
+    if (!currentBeaconTarget) return;
+    const targetEl = document.getElementById(currentBeaconTarget);
+    if (!targetEl) return;
 
-        const rect = targetEl.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        
-        let yOffsetRatio = 0.5;
-        if (currentBeaconTarget === 'hover_x5F_torso') yOffsetRatio = 0.25; 
-        
-        const centerY = rect.top + rect.height * yOffsetRatio;
+    const rect = targetEl.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    
+    let yOffsetRatio = 0.5;
+    if (currentBeaconTarget === 'hover_x5F_torso') yOffsetRatio = 0.25; 
+    
+    const centerY = rect.top + rect.height * yOffsetRatio;
 
-        hintBeacon.style.left = `${centerX}px`;
-        hintBeacon.style.top = `${centerY}px`;
-    };
+    hintBeacon.style.left = `${centerX}px`;
+    hintBeacon.style.top = `${centerY}px`;
+
+};
 
     const setBeaconToTarget = (targetId) => {
         currentBeaconTarget = targetId;
@@ -109,14 +190,34 @@ document.addEventListener('DOMContentLoaded', () => {
         hintBeacon.style.opacity = 1;
     };
 
-    const setBeaconByViewport = (vw, vh) => {
-        currentBeaconTarget = null; 
-        hintBeacon.style.left = `${vw}vw`;
-        hintBeacon.style.top = `${vh}vh`;
-        hintBeacon.style.opacity = 1;
-    };
+const setBeaconByViewport = (vw, vh) => {
+    currentBeaconTarget = null; 
+    hintBeacon.style.left = `${vw}vw`;
+    hintBeacon.style.top = `${vh}vh`;
+    hintBeacon.style.opacity = 1;
 
-    const hideBeacon = () => { hintBeacon.style.opacity = 0; };
+};
+
+   const hideBeacon = () => {
+    clearBeaconTimer();
+    hintBeacon.style.opacity = 0;
+};
+
+    function clearBeaconTimer() {
+    if (beaconTimer) {
+        clearTimeout(beaconTimer);
+        beaconTimer = null;
+    }
+}
+
+function scheduleBeacon(callback, delay) {
+    clearBeaconTimer();
+
+    beaconTimer = setTimeout(() => {
+        callback();
+        beaconTimer = null;
+    }, delay);
+}
 
     window.addEventListener('resize', updateBeaconPosition);
 
@@ -185,9 +286,10 @@ const updateText = (key, immediate = false) => {
     // ---------------------------------------------
     
     updateText('init', true); // true 表示立即显示，无延迟
-    setTimeout(() => { 
+    scheduleBeacon(() => { 
         setBeaconToTarget('hover_x5F_head'); 
     }, TIMING_CONFIG.initBeaconAppear);
+    scheduleInteractionHint();
 
     // === 新增：重置所有状态的函数 ===
     const resetStory = () => {
@@ -221,17 +323,23 @@ const updateText = (key, immediate = false) => {
         outlineGroup.style.opacity = 1;
 
         // 4. 重新启动初始引导光标
-        setTimeout(() => { 
+        scheduleBeacon(() => { 
             setBeaconToTarget('hover_x5F_head'); 
         }, TIMING_CONFIG.initBeaconAppear);
+
+        scheduleInteractionHint(HINT_TEXT.initial, 0);
     };
+
+    scheduleInteractionHint(HINT_TEXT.initial);
 
     // 【第一幕：点击头部】
     hoverHead.addEventListener('click', (e) => {
         if (currentStep === 0) {
             e.stopPropagation(); // 阻止事件冒泡，防止触发背景点击
+            clearBeaconTimer();
             currentStep = 1;
             hideBeacon(); 
+            hideInteractionHint();
             updateText('brain'); 
             
             nervousSystem.forEach((group, i) => {
@@ -241,7 +349,7 @@ const updateText = (key, immediate = false) => {
             
             
 
- setTimeout(() => {
+ scheduleBeacon(() => {
 
         setBeaconToTarget('hover_x5F_torso');
     
@@ -252,12 +360,16 @@ const updateText = (key, immediate = false) => {
         }
     });
 
+
+
     // 【第二幕：点击躯干】
     hoverTorso.addEventListener('click', (e) => {
         if (currentStep === 1) {
             e.stopPropagation(); // 阻止事件冒泡
+            clearBeaconTimer();
             currentStep = 2;
             hideBeacon();
+            hideInteractionHint();
             updateText('torso'); 
             
             nervousSystem.forEach(group => {
@@ -291,6 +403,8 @@ const updateText = (key, immediate = false) => {
     document.addEventListener('click', () => {
         // 当处于第二幕且被点击时，进入第三幕 (环境)
         if (currentStep === 2) {
+            clearBeaconTimer();
+            hideInteractionHint();
             currentStep = 3;
             hideBeacon();
             updateText('flow'); 
@@ -307,7 +421,7 @@ const updateText = (key, immediate = false) => {
             }, TIMING_CONFIG.flowEffectStart);
 
             // 引导光标指向文字区域，暗示用户读完后继续点击
-            setTimeout(() => {
+            scheduleBeacon(() => {
     if (window.innerWidth <= 900) {
         // 手机
         setBeaconByViewport(70, 35);
@@ -320,19 +434,32 @@ const updateText = (key, immediate = false) => {
             // 注：已移除这里的自动进入落幕状态的 setTimeout
         } 
         // === 新增：当处于第三幕被点击时，手动进入第四幕 (落幕) ===
-        else if (currentStep === 3) {
-            currentStep = 4;
-            updateText('end'); 
-            
-            flowContainer.style.opacity = 0;
-            shiverEffect.style.opacity = 0;
-            fullBodyStatic.style.opacity = 0;
-            outlineGroup.style.opacity = 1;
-            hideBeacon();
-        }
+else if (currentStep === 3) {
+    clearBeaconTimer();
+    hideInteractionHint();
+
+    currentStep = 4;
+    updateText('end'); 
+    
+    flowContainer.style.opacity = 0;
+    shiverEffect.style.opacity = 0;
+    fullBodyStatic.style.opacity = 0;
+    outlineGroup.style.opacity = 1;
+
+    if (window.innerWidth <= 900) {
+        setBeaconByViewport(50, 82);
+    } else {
+        setBeaconByViewport(45, 72);
+    }
+
+    showResetHint();
+}
         // === 当处于最终落幕状态被点击时，全局重置 ===
         else if (currentStep === 4) {
+            clearBeaconTimer();
+            hideInteractionHint();
             resetStory();
         }
     });
 });
+
