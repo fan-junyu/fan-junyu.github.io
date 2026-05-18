@@ -651,16 +651,9 @@ body:not(.topic-has-interacted) .hint-beacon::after {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .topic-interaction-hint {
-    position: fixed;
-    left: 50%;
-    top: 38svh;
-    transform: translateX(-50%);
-    font-size: 0.76rem;
-    letter-spacing: 0.04em;
-    color: rgba(145, 165, 178, 0.5);
-    text-align: center;
-  }
+.topic-interaction-hint {
+    display: none;
+}
 
 }
 

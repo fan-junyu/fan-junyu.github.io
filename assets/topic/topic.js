@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const isMobile = window.innerWidth <= 900;
+    const isMobile = window.innerWidth <= 640;
 
     // =====================================================================
     // 🎛️ 动画节奏控制面板 (单位：毫秒 ms，1000ms = 1秒)
@@ -63,7 +63,7 @@ let hintFollowsMouse = true;
 let beaconTimer = null;
 
 function scheduleInteractionHint(text = HINT_TEXT.initial, delay = TIMING_CONFIG.hintDelay || 2000) {
-    if (!interactionHint) return;
+    if (!interactionHint || isMobile) return;
     hintFollowsMouse = true;
     clearTimeout(hintTimer);
 
@@ -94,7 +94,7 @@ function hideInteractionHint() {
 }
 
 function showResetHint() {
-    if (!interactionHint) return;
+    if (!interactionHint || isMobile) return;
 
     hintFollowsMouse = false;
 
