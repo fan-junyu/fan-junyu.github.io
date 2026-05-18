@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const isMobile = window.innerWidth <= 640;
+    const isMobile = window.innerWidth <= 900;
 
     // =====================================================================
     // 🎛️ 动画节奏控制面板 (单位：毫秒 ms，1000ms = 1秒)
